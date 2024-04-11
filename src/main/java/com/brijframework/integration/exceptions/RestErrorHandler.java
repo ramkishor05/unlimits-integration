@@ -1,6 +1,7 @@
 package com.brijframework.integration.exceptions;
 
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Component;

@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import com.brijframework.integration.exceptions.RestErrorHandler;
-
 @Configuration
 public class OpenAIConfig {
 
@@ -22,7 +20,7 @@ public class OpenAIConfig {
             request.getHeaders().add("Authorization", "Bearer " + openaiApiKey);
             return execution.execute(request, body);
         });
-        restTemplate.setErrorHandler(new RestErrorHandler());
+       // restTemplate.setErrorHandler(new RestErrorHandler());
         return restTemplate;
     }
 }
