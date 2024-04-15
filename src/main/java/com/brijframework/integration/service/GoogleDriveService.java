@@ -22,12 +22,15 @@ import com.google.api.services.drive.Drive.Files.Get;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import com.google.common.io.Files;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.http.HttpHeaders;
 import java.net.http.HttpClient.Version;
@@ -37,6 +40,8 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -125,15 +130,11 @@ public class GoogleDriveService {
 	public static  String getfiles() throws IOException, GeneralSecurityException {
 		  
 	    Drive service = getInstance();
-	    
+	    OutputStream outputStream = new ByteArrayOutputStream();
 	    Get result = service.files().get("12CCvmzIWirEGI5nKuRmOhI_KZnb-gSUA");
-	    File files = result.execute();
-	    if (files == null || files.isEmpty()) {
-	      System.out.println("No files found.");
-	      return "No files found.";
-	    } else {
-	      return files.toString();
-	    }
+	    result.executeAndDownloadTo(outputStream);
+	    ZipOutputStream zs = new ZipOutputStream(outputStream) ;
+		return zs.toString();
 	  }
 
 
