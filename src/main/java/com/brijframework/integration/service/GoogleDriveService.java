@@ -1,55 +1,82 @@
 package com.brijframework.integration.service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.security.GeneralSecurityException;
-import java.util.Collections;
-import java.util.List;
-
-import org.springframework.stereotype.Component;
-
+import com.google.api.client.auth.oauth.OAuthParameters;
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
+import com.google.api.client.googleapis.MethodOverride;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.mtls.MtlsProvider;
+import com.google.api.client.googleapis.mtls.MtlsUtils;
+import com.google.api.client.googleapis.services.CommonGoogleClientRequestInitializer;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.Drive.Files.Get;
 import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
+import com.google.common.io.Files;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URI;
+import java.net.http.HttpHeaders;
+import java.net.http.HttpClient.Version;
+import java.net.http.HttpRequest.BodyPublisher;
+import java.security.GeneralSecurityException;
+import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 /* class to demonstrate use of Drive files list API */
 @Component
 public class GoogleDriveService {
 	/**
-	   * Application name.
-	   */
-	  private static final String APPLICATION_NAME = "Google Drive API Java Quickstart";
-	  /**
-	   * Global instance of the JSON factory.
-	   */
-	  private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-	  /**
-	   * Directory to store authorization tokens for this application.
-	   */
-	  private static final String TOKENS_DIRECTORY_PATH = "tokens";
+	 * Application name.
+	 */
+	private static final String APPLICATION_NAME = "Google Drive";
+	/**
+	 * Global instance of the JSON factory.
+	 */
+	private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
+	/**
+	 * Directory to store authorization tokens for this application.
+	 */
+	private static final String TOKENS_DIRECTORY_PATH = "tokens";
 
-	  /**
-	   * Global instance of the scopes required by this quickstart.
-	   * If modifying these scopes, delete your previously saved tokens/ folder.
-	   */
-	  private static final List<String> SCOPES =
-	      Collections.singletonList(DriveScopes.DRIVE_METADATA_READONLY);
-	  private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+	/**
+	 * Global instance of the scopes required by this quickstart. If modifying these
+	 * scopes, delete your previously saved tokens/ folder.
+	 */
+	private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE_FILE);
+	private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
-	  /**
+	/**
+	 * Creates an authorized Credential object.
+	 *
+	 * @param HTTP_TRANSPORT The network HTTP Transport.
+	 * @return An authorized Credential object.
+	 * @throws IOException If the credentials.json file cannot be found.
+	 */
+	/**
 	   * Creates an authorized Credential object.
 	   *
 	   * @param HTTP_TRANSPORT The network HTTP Transport.
@@ -78,27 +105,37 @@ public class GoogleDriveService {
 	    return credential;
 	  }
 
-	  public static void main(String... args) throws IOException, GeneralSecurityException {
-	    // Build a new authorized API client service.
-	    final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-	    Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-	        .setApplicationName(APPLICATION_NAME)
-	        .build();
+	public static Drive  getInstance() throws GeneralSecurityException, IOException {
+		// Build a new authorized API client service.
+		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+		MethodOverride credentials = new MethodOverride();//getCredentials(HTTP_TRANSPORT);
+		com.google.api.client.googleapis.services.GoogleClientRequestInitializer googleClientRequestInitializer=new CommonGoogleClientRequestInitializer("AIzaSyDNnzAkd3sd_f7NH_kStnEK_MB5VUSOr2w");
+		Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
+				.setApplicationName(APPLICATION_NAME)
+				.setGoogleClientRequestInitializer(googleClientRequestInitializer)
+				.build();
+		return service;
+	}
 
-	    // Print the names and IDs for up to 10 files.
-	    FileList result = service.files().list()
-	        .setPageSize(10)
-	        .setFields("nextPageToken, files(id, name)")
-	        .execute();
-	    List<com.google.api.services.drive.model.File> files = result.getFiles();
-	    if (files == null || files.isEmpty()) {
-	      System.out.println("No files found.");
-	    } else {
-	      System.out.println("Files:");
-	      for (com.google.api.services.drive.model.File file : files) {
-	        System.out.printf("%s (%s)\n", file.getName(), file.getId());
-	      }
-	    }
+//Code needs to be implemented for the uploding a file to drive
+//uploading functions are as follows as 
+//Using this code snippet you can do all drive functionality
+//getfiles()
+//uploadFile()
+	
+	public static void main(String[] args) throws GeneralSecurityException, IOException {
+		System.out.println(getfiles());
+	}
+	
+	public static  String getfiles() throws IOException, GeneralSecurityException {
+		  
+	    Drive service = getInstance();
+	    OutputStream outputStream = new ByteArrayOutputStream();
+	    Get result = service.files().get("12CCvmzIWirEGI5nKuRmOhI_KZnb-gSUA");
+	    result.executeAndDownloadTo(outputStream);
+	    ZipOutputStream zs = new ZipOutputStream(outputStream) ;
+		return zs.toString();
 	  }
+
 
 }
