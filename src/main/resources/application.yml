@@ -8,11 +8,15 @@ spring:
 openai:
    model: gpt-3.5-turbo
    api:
+     key: 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
      urlmodels: https://api.openai.com/v1/models
      urlchat: https://api.openai.com/v1/chat/completions
      urlaudio: https://api.openai.com/v1/audio
      urlimages: https://api.openai.com/v1/images
-
+google:
+   api:
+      key: AIzaSyDNnzAkd3sd_f7NH_kStnEK_MB5VUSOr2w
+      driveId: 12CCvmzIWirEGI5nKuRmOhI_KZnb-gSUA
 springdoc:
    swagger-ui:
       path: /api/swagger-ui.html

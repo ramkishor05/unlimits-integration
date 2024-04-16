@@ -83,6 +83,15 @@
 			<version>v3-rev20220815-2.0.0</version>
 		</dependency>
 
+		<!--
+		https://mvnrepository.com/artifact/io.github.brijframework/brijframework-util -->
+		<dependency>
+			<groupId>io.github.brijframework</groupId>
+			<artifactId>brijframework-util</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<dependencyManagement>
