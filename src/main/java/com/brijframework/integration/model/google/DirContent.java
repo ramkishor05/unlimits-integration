@@ -1,18 +1,21 @@
-package com.brijframework.integration.model.drive;
+package com.brijframework.integration.model.google;
 
-public class FileContent implements MediaContent {
+import java.util.List;
+
+public class DirContent implements MediaContent{
 	String id;
 	String name;
 	String type;
-	String content;
-
-	public FileContent(String id, String name, String type) {
+	
+	List<MediaContent> files;
+	
+	public DirContent(String id, String name, String type) {
 		super();
-		this.id = id;
+		this.id=id;
 		this.name = name;
 		this.type = type;
 	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -37,12 +40,11 @@ public class FileContent implements MediaContent {
 		this.type = type;
 	}
 
-	public String getContent() {
-		return content;
+	public List<MediaContent> getFiles() {
+		return files;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
+	public void setFiles(List<MediaContent> files) {
+		this.files = files;
 	}
-
 }

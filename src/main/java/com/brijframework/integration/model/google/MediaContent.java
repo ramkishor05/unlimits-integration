@@ -1,4 +1,4 @@
-package com.brijframework.integration.model.drive;
+package com.brijframework.integration.model.google;
 
 public interface MediaContent {
 

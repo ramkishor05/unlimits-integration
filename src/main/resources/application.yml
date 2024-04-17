@@ -17,6 +17,10 @@ google:
    api:
       key: AIzaSyDNnzAkd3sd_f7NH_kStnEK_MB5VUSOr2w
       driveId: 12CCvmzIWirEGI5nKuRmOhI_KZnb-gSUA
+pexels:
+   api:
+      key: PscnQK1xzBeUece4hZCnRPajD3eAL03orDj4KEiWYozfslb0uSf1LVzN
+      urlimages: https://api.pexels.com/v1/search?query=nature&per_page=100
 springdoc:
    swagger-ui:
       path: /api/swagger-ui.html
