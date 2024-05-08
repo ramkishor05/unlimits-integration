@@ -13,6 +13,7 @@ openai:
      urlchat: https://api.openai.com/v1/chat/completions
      urlaudio: https://api.openai.com/v1/audio
      urlimages: https://api.openai.com/v1/images
+     
 google:
    api:
       key: AIzaSyDNnzAkd3sd_f7NH_kStnEK_MB5VUSOr2w
