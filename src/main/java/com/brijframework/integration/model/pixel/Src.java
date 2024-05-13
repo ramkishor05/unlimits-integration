@@ -1,6 +1,5 @@
 package com.brijframework.integration.model.pixel;
-import java.util.HashMap;
-import java.util.Map;
+
 public class Src {
     private String original;
     private String large2x;

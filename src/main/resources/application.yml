@@ -25,6 +25,8 @@ pexels:
 springdoc:
    swagger-ui:
       path: /api/swagger-ui.html
+content: 
+   
 server: 
   port: 4444
 # Disable Spring Boot's "Whitelabel" default error page, so we can use our own

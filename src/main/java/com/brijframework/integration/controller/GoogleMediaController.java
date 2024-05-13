@@ -3,35 +3,35 @@ package com.brijframework.integration.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.brijframework.integration.model.google.FileContent;
 import com.brijframework.integration.model.google.MediaContent;
-import com.brijframework.integration.service.GoogleDriveService;
+import com.brijframework.integration.service.GoogleMediaService;
 
 @RestController()
-@RequestMapping("/google/drive")
-public class GoogleDriveController {
+@RequestMapping("/google/media")
+public class GoogleMediaController {
 
     @Autowired
-    GoogleDriveService googleDriveService;
+    GoogleMediaService googleMediaService;
 
-    @GetMapping("/folders/{fileId}")
+    @PostMapping("/folders/{fileId}")
     public  List<MediaContent> getAllFolders(@PathVariable String  fileId) throws Exception{
-        return googleDriveService.getAllFolders(fileId);
+        return googleMediaService.getAllFolders(fileId);
     }
 
-    @GetMapping("/files/{fileId}")
+    @PostMapping("/files/{fileId}")
     public  List<MediaContent> getAllFiles(@PathVariable String  fileId) throws Exception{
-        return googleDriveService.getAllFiles(fileId);
+        return googleMediaService.getAllFiles(fileId);
     }
     
-    @GetMapping("/content/{fileId}")
+    @PostMapping("/content/{fileId}")
     public  FileContent getFileContent(@PathVariable String  fileId) throws Exception{
-        return googleDriveService.getFileContent(fileId);
+        return googleMediaService.getFileContent(fileId);
     }
-   
+    
 }

@@ -2,20 +2,20 @@ package com.brijframework.integration.model.google;
 
 import java.util.List;
 
-public class DirContent implements MediaContent{
-	String id;
-	String name;
-	String type;
-	
-	List<MediaContent> files;
-	
+public class DirContent implements MediaContent {
+	private String id;
+	private String name;
+	private String type;
+
+	private List<MediaContent> files;
+
 	public DirContent(String id, String name, String type) {
 		super();
-		this.id=id;
+		this.id = id;
 		this.name = name;
 		this.type = type;
 	}
-	
+
 	public String getId() {
 		return id;
 	}

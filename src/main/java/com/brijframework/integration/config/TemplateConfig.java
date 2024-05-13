@@ -40,4 +40,16 @@ public class TemplateConfig {
         restTemplate.setErrorHandler(new RestErrorHandler());
         return restTemplate;
     }
+    
+    @Bean
+    @Qualifier("allRestTemplate")
+    public RestTemplate allRestTemplate() {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getInterceptors().add((request, body, execution) -> {
+          //  request.getHeaders().add("Authorization", "Bearer " + openaiApiKey);
+            return execution.execute(request, body);
+        });
+        restTemplate.setErrorHandler(new RestErrorHandler());
+        return restTemplate;
+    }
 }

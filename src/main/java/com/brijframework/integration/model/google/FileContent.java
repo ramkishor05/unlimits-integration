@@ -1,10 +1,10 @@
 package com.brijframework.integration.model.google;
 
 public class FileContent implements MediaContent {
-	String id;
-	String name;
-	String type;
-	String content;
+	private String id;
+	private String name;
+	private String type;
+	private String content;
 
 	public FileContent(String id, String name, String type) {
 		super();

@@ -16,6 +16,7 @@ import com.brijframework.integration.utils.ContentUtils;
 import com.google.api.client.googleapis.MethodOverride;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.googleapis.services.CommonGoogleClientRequestInitializer;
+import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -30,6 +31,10 @@ import com.google.api.services.drive.model.FileList;
 @Service
 public class GoogleDriveServiceImpl implements GoogleDriveService{
 	/**
+	 * 
+	 */
+	private static final String FOLDER = "folder";
+	/**
 	 * Application name.
 	 */
 	private static final String APPLICATION_NAME = "Google Drive";
@@ -43,12 +48,12 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 	
 	@Value("${google.api.driveId}")
     private String driveId;
+	
 
 	public Drive getInstance() throws GeneralSecurityException, IOException {
 		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		MethodOverride credentials = new MethodOverride();// getCredentials(HTTP_TRANSPORT);
-		com.google.api.client.googleapis.services.GoogleClientRequestInitializer googleClientRequestInitializer = CommonGoogleClientRequestInitializer
-				.newBuilder().setKey(key).build();
+		GoogleClientRequestInitializer googleClientRequestInitializer = CommonGoogleClientRequestInitializer.newBuilder().setKey(key).build();
 		Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, credentials)
 				.setApplicationName(APPLICATION_NAME).setGoogleClientRequestInitializer(googleClientRequestInitializer)
 				.build();
@@ -67,7 +72,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 				List<File> files = fileList.getFiles();
 				for (File file : files) {
 					if (file.getMimeType().equalsIgnoreCase("application/vnd.google-apps.folder")) {
-						DirContent fileContent = new DirContent(file.getId() ,file.getName(), "folder");
+						DirContent fileContent = new DirContent(file.getId() ,file.getName(), FOLDER);
 						result.add(fileContent);
 						fileContent.setFiles(getFileContentList(service, file));
 					} else {
@@ -75,7 +80,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 						result.add(fileContent);
 					}
 				}
-				request.setPageToken(null);
+				request.setPageToken(fileList.getNextPageToken());
 			} catch (IOException e) {
 				request.setPageToken(null);
 			}
@@ -83,6 +88,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 		return result;
 	}
 	
+	@SuppressWarnings("unused")
 	private List<MediaContent> getSubContentList(Drive service, File folder) throws IOException {
 		System.out.println("Folder: " + folder.getName());
 		List<MediaContent> result = new ArrayList<MediaContent>();
@@ -94,7 +100,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 				List<File> files = fileList.getFiles();
 				for (File file : files) {
 					if (file.getMimeType().equalsIgnoreCase("application/vnd.google-apps.folder")) {
-						DirContent fileContent = new DirContent(file.getId() ,file.getName(), "folder");
+						DirContent fileContent = new DirContent(file.getId() ,file.getName(), FOLDER);
 						result.add(fileContent);
 					} else {
 						FileContent fileContent = new FileContent(file.getId() ,file.getName(), file.getMimeType());
@@ -115,7 +121,8 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 		FileContent fileContent = new FileContent(file.getId() ,file.getName(), file.getMimeType());
 		HttpResponse executeMedia = get.executeMedia();
 		try (InputStream inputStream = executeMedia.getContent()) {
-			fileContent.setContent(ContentUtils.parseAsString(inputStream));
+			String content="data:"+file.getMimeType()+";base64,"+ContentUtils.parseAsString(inputStream);
+			fileContent.setContent(content);
 		}
 		return fileContent;
 	}
@@ -131,7 +138,7 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 				FileList fileList = request.execute();
 				List<File> files = fileList.getFiles();
 				for (File file : files) {
-					DirContent fileContent = new DirContent(file.getId() ,file.getName(), "folder");
+					DirContent fileContent = new DirContent(file.getId() ,file.getName(), FOLDER);
 					result.add(fileContent);
 					fileContent.setFiles(getFileDirList(service, file));
 				}
@@ -162,4 +169,5 @@ public class GoogleDriveServiceImpl implements GoogleDriveService{
 		Drive service = getInstance();
 		return getFileContent(service, fileId);
 	}
+
 }
