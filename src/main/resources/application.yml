@@ -1,3 +1,10 @@
+server: 
+  port: 4444
+# Disable Spring Boot's "Whitelabel" default error page, so we can use our own
+error:
+  whitelabel:
+    enabled: true
+
 spring:
    profiles:
      active: local
@@ -19,18 +26,14 @@ google:
       key: AIzaSyDNnzAkd3sd_f7NH_kStnEK_MB5VUSOr2w
       driveId: 12CCvmzIWirEGI5nKuRmOhI_KZnb-gSUA
 pexels:
+   user: sajith@unlimits.ai
+   password: unlimits2024
    api:
-      key: PscnQK1xzBeUece4hZCnRPajD3eAL03orDj4KEiWYozfslb0uSf1LVzN
+      key: shZFoL0bXoM1fPRCtZ7SFM6adEu3EtDkmQWK2QvbytZ6khWL5ph5qfqZ
       urlimages: https://api.pexels.com/v1/search?query=nature&per_page=100
 springdoc:
    swagger-ui:
       path: /api/swagger-ui.html
-content: 
-   
-server: 
-  port: 4444
-# Disable Spring Boot's "Whitelabel" default error page, so we can use our own
-error:
-  whitelabel:
-    enabled: true
-    
+openapi:
+  service:
+      url: http://localhost:8080/integration
