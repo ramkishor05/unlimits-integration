@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,6 +30,9 @@ public class GoogleMediaServiceImpl implements GoogleMediaService {
 	@Autowired
 	@Qualifier("allRestTemplate")
 	private RestTemplate restTemplate;
+	
+	@Value("${content.api.url}")
+	private String contentApiUrl;
 
 	@Override
 	public List<MediaContent> getAllFolders(String fileId) {
@@ -76,13 +80,12 @@ public class GoogleMediaServiceImpl implements GoogleMediaService {
 			mediaItem.setName(fileContent.getName());
 			mediaItem.setTypeId(fileContent.getType());
 			mediaItem.setContent(fileContent.getContent());
-			restTemplate.put("http://localhost:3333/api/global/Media/item", mediaItem, UIGlobalMediaItem.class);
+			restTemplate.put(contentApiUrl+"/api/global/media/item", mediaItem, UIGlobalMediaItem.class);
 			return fileContent;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
 
 }
