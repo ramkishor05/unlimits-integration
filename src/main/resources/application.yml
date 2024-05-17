@@ -36,7 +36,7 @@ springdoc:
       path: /api/swagger-ui.html
 openapi:
   service:
-      url: http://51.79.159.7:8080/integration
+      url: http://localhost:4444
 content:
    api:
-     url: http://51.79.159.7:8080/content
+     url: http://localhost:3333
