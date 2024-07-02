@@ -12,6 +12,11 @@ spring:
      name: unlimits_integration
    main:
      allow-bean-definition-overriding: true
+# Discovery Server Access
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
 openai:
    model: gpt-3.5-turbo
    api:
