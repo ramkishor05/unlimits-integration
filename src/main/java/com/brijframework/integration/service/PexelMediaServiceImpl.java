@@ -14,7 +14,7 @@ import com.brijframework.integration.model.google.MediaContent;
 import com.brijframework.integration.model.pixel.Root;
 
 @Service
-public class PexelDriveServiceImpl implements PexelDriveService {
+public class PexelMediaServiceImpl implements PexelMediaService {
 
 	@Qualifier("pexelsRestTemplate")
 	@Autowired
@@ -33,7 +33,9 @@ public class PexelDriveServiceImpl implements PexelDriveService {
 		List<MediaContent>  contents=new ArrayList<MediaContent>();
 		Root forObject = restTemplate.getForObject(urlimages, Root.class);
 		forObject.getPhotos().forEach(photo -> {
-			contents.add(new FileContent(photo.getId()+"", photo.getUrl(), photo.getAlt()));
+			FileContent fileContent = new FileContent(photo.getId()+"", photo.getAlt(), "file");
+			fileContent.setUrl(photo.getSrc().getOriginal());
+			contents.add(fileContent);
 		});
 		return contents;
 	}

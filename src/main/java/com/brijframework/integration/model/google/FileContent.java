@@ -4,6 +4,7 @@ public class FileContent implements MediaContent {
 	private String id;
 	private String name;
 	private String type;
+	private String url;
 	private String content;
 
 	public FileContent(String id, String name, String type) {
@@ -43,6 +44,14 @@ public class FileContent implements MediaContent {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

@@ -13,7 +13,7 @@ import com.brijframework.integration.model.google.MediaContent;
 import com.brijframework.integration.service.GoogleDriveService;
 
 @RestController()
-@RequestMapping("/google/drive")
+@RequestMapping("/api/google/drive")
 public class GoogleDriveController {
 
     @Autowired

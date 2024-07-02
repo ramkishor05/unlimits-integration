@@ -13,7 +13,7 @@ import com.brijframework.integration.model.google.MediaContent;
 import com.brijframework.integration.service.GoogleMediaService;
 
 @RestController()
-@RequestMapping("/google/media")
+@RequestMapping("/api/google/media")
 public class GoogleMediaController {
 
     @Autowired

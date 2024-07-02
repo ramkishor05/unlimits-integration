@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.brijframework.integration.model.google.FileContent;
 import com.brijframework.integration.model.google.MediaContent;
-import com.brijframework.integration.service.PexelDriveService;
+import com.brijframework.integration.service.PexelMediaService;
 
 @RestController()
-@RequestMapping("/pexel/drive")
-public class PexelController {
+@RequestMapping("/api/pexel/media")
+public class PexelMediaController {
 
 	@Autowired
-	PexelDriveService pexelDriveService;
+	PexelMediaService pexelMediaService;
 
     @GetMapping("/folders/{fileId}")
     public  List<MediaContent> getAllFolders(@PathVariable String  fileId) throws Exception{
-        return pexelDriveService.getAllFolders(fileId);
+        return pexelMediaService.getAllFolders(fileId);
     }
-
+    
     @GetMapping("/files/{fileId}")
     public  List<MediaContent> getAllFiles(@PathVariable String  fileId) throws Exception{
-        return pexelDriveService.getAllFiles(fileId);
+        return pexelMediaService.getAllFiles(fileId);
     }
     
     @GetMapping("/content/{fileId}")
     public  FileContent getFileContent(@PathVariable String  fileId) throws Exception{
-        return pexelDriveService.getFileContent(fileId);
+        return pexelMediaService.getFileContent(fileId);
     }
 }
