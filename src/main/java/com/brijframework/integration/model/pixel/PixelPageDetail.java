@@ -1,11 +1,11 @@
 package com.brijframework.integration.model.pixel;
 import java.util.ArrayList;
 import java.util.List;
-public class Root {
+public class PixelPageDetail {
     private Integer totalResults;
     private Integer page;
     private Integer perPage;
-    private List<Photo> photos = new ArrayList<Photo>();
+    private List<PixelPhoto> photos = new ArrayList<PixelPhoto>();
     private String nextPage;
     public Integer getTotalResults() {
         return totalResults;
@@ -25,10 +25,10 @@ public class Root {
     public void setPerPage(Integer perPage) {
         this.perPage = perPage;
     }
-    public List<Photo> getPhotos() {
+    public List<PixelPhoto> getPhotos() {
         return photos;
     }
-    public void setPhotos(List<Photo> photos) {
+    public void setPhotos(List<PixelPhoto> photos) {
         this.photos = photos;
     }
     public String getNextPage() {

@@ -1,6 +1,6 @@
 package com.brijframework.integration.model.pixel;
 
-public class Src {
+public class PixelSrc {
     private String original;
     private String large2x;
     private String large;

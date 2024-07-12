@@ -1,6 +1,6 @@
 package com.brijframework.integration.model.pixel;
 
-public class Photo {
+public class PixelPhoto {
     private Integer id;
     private Integer width;
     private Integer height;
@@ -9,7 +9,7 @@ public class Photo {
     private String photographerUrl;
     private Integer photographerId;
     private String avgColor;
-    private Src src;
+    private PixelSrc src;
     private Boolean liked;
     private String alt;
     public Integer getId() {
@@ -60,10 +60,10 @@ public class Photo {
     public void setAvgColor(String avgColor) {
         this.avgColor = avgColor;
     }
-    public Src getSrc() {
+    public PixelSrc getSrc() {
         return src;
     }
-    public void setSrc(Src src) {
+    public void setSrc(PixelSrc src) {
         this.src = src;
     }
     public Boolean getLiked() {
