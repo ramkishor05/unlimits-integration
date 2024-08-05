@@ -12,7 +12,7 @@ import com.brijframework.integration.model.ImageRequest;
 import com.brijframework.integration.model.Model;
 
 @Service
-public class ChatGptServiceImpl implements ChatGptService {
+public class ChatGptDriveServiceImpl implements ChatGptDriveService {
 
 	@Qualifier("openaiRestTemplate")
     @Autowired

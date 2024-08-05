@@ -8,33 +8,33 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.brijframework.integration.model.ChatResponse;
 import com.brijframework.integration.model.Model;
-import com.brijframework.integration.service.ChatGptService;
+import com.brijframework.integration.service.ChatGptDriveService;
 
 @RestController
-@RequestMapping("/api/chatgpt/media")
-public class ChatGptController {
+@RequestMapping("/api/chatgpt/drive")
+public class ChatGptDriveController {
     
     
     @Autowired
-    private ChatGptService chatGptService;
+    private ChatGptDriveService chatGptDriveService;
     
     @GetMapping("/chat/completions")
     public ChatResponse chat(@RequestParam String prompt) {
-        return chatGptService.chat(prompt);
+        return chatGptDriveService.chat(prompt);
     }
     
     @GetMapping("/chat/model")
     public Model model() {
-        return chatGptService.model();
+        return chatGptDriveService.model();
     }
     
     @GetMapping("/chat/images")
     public String images(@RequestParam String prompt) {
-        return chatGptService.imagesGenerations(prompt);
+        return chatGptDriveService.imagesGenerations(prompt);
     }
     
     @GetMapping("/chat/audio")
     public String audio() {
-        return chatGptService.audio();
+        return chatGptDriveService.audio();
     }
 }

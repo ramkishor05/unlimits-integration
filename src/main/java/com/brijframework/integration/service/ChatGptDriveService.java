@@ -3,7 +3,7 @@ package com.brijframework.integration.service;
 import com.brijframework.integration.model.ChatResponse;
 import com.brijframework.integration.model.Model;
 
-public interface ChatGptService {
+public interface ChatGptDriveService {
 
 	ChatResponse chat(String prompt);
 
