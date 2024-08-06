@@ -2,8 +2,7 @@ package com.brijframework.integration.service;
 
 import java.util.List;
 
-import org.unlimits.rest.crud.beans.PageDetail;
-
+import com.brijframework.integration.beans.PageDetail;
 import com.brijframework.integration.model.google.FileContent;
 import com.brijframework.integration.model.google.MediaContent;
 

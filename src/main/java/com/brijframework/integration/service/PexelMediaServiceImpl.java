@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.unlimits.rest.crud.beans.PageDetail;
 
+import com.brijframework.integration.beans.PageDetail;
 import com.brijframework.integration.model.google.FileContent;
 import com.brijframework.integration.model.google.MediaContent;
 import com.brijframework.integration.model.pixel.PixelPageDetail;
@@ -30,9 +30,10 @@ public class PexelMediaServiceImpl implements PexelMediaService {
 	}
 
 	@Override
-	public List<MediaContent> getAllFiles(String fileId) {
+	public List<MediaContent> getAllFiles(String query) {
+		String url=urlimages+"?query="+query+"&per_page="+100;
 		List<MediaContent>  contents=new ArrayList<MediaContent>();
-		PixelPageDetail forObject = restTemplate.getForObject(urlimages, PixelPageDetail.class);
+		PixelPageDetail forObject = restTemplate.getForObject(url, PixelPageDetail.class);
 		forObject.getPhotos().forEach(photo -> {
 			FileContent fileContent = new FileContent(photo.getId()+"", photo.getAlt(), "file");
 			fileContent.setUrl(photo.getSrc().getOriginal());
@@ -48,9 +49,10 @@ public class PexelMediaServiceImpl implements PexelMediaService {
 	}
 	
 	@Override
-	public PageDetail getAllFilesPage(String name, int pageNumber, int count) {
+	public PageDetail getAllFilesPage(String query, int pageNumber, int count) {
 		PageDetail pageDetail=new PageDetail();
-		PixelPageDetail forObject = restTemplate.getForObject(urlimages, PixelPageDetail.class);
+		String url=urlimages+"?query="+query+"&per_page="+count;
+		PixelPageDetail forObject = restTemplate.getForObject(url, PixelPageDetail.class);
 		pageDetail.setPageCount(count);
 		pageDetail.setTotalCount(forObject.getTotalResults());
 		pageDetail.setTotalPages(forObject.getPage());

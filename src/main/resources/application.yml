@@ -16,11 +16,11 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:1111/eureka/
+      defaultZone: http://51.79.159.7:1111/eureka/
 openai:
-   model: gpt-3.5-turbo
+   model: gpt-4o
    api:
-     key: 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
+     key: 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
      urlmodels: https://api.openai.com/v1/models
      urlchat: https://api.openai.com/v1/chat/completions
      urlaudio: https://api.openai.com/v1/audio
@@ -35,7 +35,7 @@ pexels:
    password: unlimits2024
    api:
       key: shZFoL0bXoM1fPRCtZ7SFM6adEu3EtDkmQWK2QvbytZ6khWL5ph5qfqZ
-      urlimages: https://api.pexels.com/v1/search?query=nature&per_page=100
+      urlimages: https://api.pexels.com/v1/search
 springdoc:
    swagger-ui:
       path: /api/swagger-ui.html

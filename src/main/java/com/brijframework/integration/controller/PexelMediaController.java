@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.unlimits.rest.crud.beans.PageDetail;
 
+import com.brijframework.integration.beans.PageDetail;
 import com.brijframework.integration.model.google.FileContent;
 import com.brijframework.integration.model.google.MediaContent;
 import com.brijframework.integration.service.PexelMediaService;

@@ -8,7 +8,7 @@ public class ChatRequest {
     private String model;
     private List<Message> messages;
     private int n;
-    private double temperature;
+    private double temperature=0.7;
 
     public ChatRequest(String model, String prompt) {
         this.model = model;
