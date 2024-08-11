@@ -1,6 +1,7 @@
 package com.brijframework.integration.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +20,7 @@ public class ChatGptMediaController {
     @Autowired
     private ChatGptMediaService chatGptMediaService;
     
-    @PostMapping("/text")
+    @PostMapping(value="/text", consumes = {MediaType.TEXT_PLAIN_VALUE}, produces = {MediaType.TEXT_PLAIN_VALUE})
     public String chat(@RequestBody String prompt) {
         return chatGptMediaService.text(prompt);
     }

@@ -18,9 +18,11 @@ eureka:
     serviceUrl:
       defaultZone: http://51.79.159.7:1111/eureka/
 openai:
-   model: gpt-4o
+   model: gpt-4
+   org_id: org-mKGjag0aNKl2OkB52o9BJ4D1
+   prg_id: proj_Zu3CI1YzGLGp9OJKQgOu9kUr
    api:
-     key: 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
+     key: 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
      urlmodels: https://api.openai.com/v1/models
      urlchat: https://api.openai.com/v1/chat/completions
      urlaudio: https://api.openai.com/v1/audio
