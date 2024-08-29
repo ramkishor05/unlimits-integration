@@ -22,7 +22,7 @@ openai:
    org_id: org-mKGjag0aNKl2OkB52o9BJ4D1
    prg_id: proj_Zu3CI1YzGLGp9OJKQgOu9kUr
    api:
-     key: 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
+     key: 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
      urlmodels: https://api.openai.com/v1/models
      urlchat: https://api.openai.com/v1/chat/completions
      urlaudio: https://api.openai.com/v1/audio
