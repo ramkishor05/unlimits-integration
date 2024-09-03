@@ -24,4 +24,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.FORBIDDEN.value(),"NOT_FOUND", ex.getStatusCode().value(), ex.getMessage());
 		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.FORBIDDEN);
 	}
+	
+	@ExceptionHandler(value = { ClientServiceException.class  })
+	protected ResponseEntity<Object> clientServiceException(ClientServiceException ex, WebRequest request) {
+		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.GATEWAY_TIMEOUT.value(),"GATEWAY_TIMEOUT", ex.getStatusCode().value(), ex.getMessage());
+		return new ResponseEntity<Object>(errorResponse, new HttpHeaders(), HttpStatus.GATEWAY_TIMEOUT);
+	}
 }

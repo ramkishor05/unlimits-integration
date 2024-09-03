@@ -4,6 +4,7 @@ import org.brijframework.util.text.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.brijframework.integration.exceptions.ClientServiceException;
 import com.brijframework.integration.model.ChatResponse;
 import com.brijframework.integration.model.Choice;
 import com.brijframework.integration.model.Message;
@@ -25,11 +26,10 @@ public class ChatGptMediaServiceImpl implements ChatGptMediaService {
 					return message.getContent();
 				}
 			}
+			return "";
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "Something went wrong in cpt";
+			throw new ClientServiceException("Something went wrong in cpt", e);
 		}
-		return "";
 	}
 
 	@Override
@@ -39,16 +39,28 @@ public class ChatGptMediaServiceImpl implements ChatGptMediaService {
 
 	@Override
 	public String audio() {
-		return chatGptDriveService.audio();
+		try {
+			return chatGptDriveService.audio();
+		} catch (Exception e) {
+			throw new ClientServiceException("Something went wrong in cpt", e);
+		}
 	}
 
 	@Override
 	public String imagesGenerations(String prompt) {
-		return chatGptDriveService.imagesGenerations(prompt);
+		try {
+			return chatGptDriveService.imagesGenerations(prompt);
+		} catch (Exception e) {
+			throw new ClientServiceException("Something went wrong in cpt", e);
+		}
 	}
 
 	@Override
 	public String imagesEdit(String prompt) {
-		return chatGptDriveService.imagesEdit(prompt);
+		try {
+			return chatGptDriveService.imagesEdit(prompt);
+		} catch (Exception e) {
+			throw new ClientServiceException("Something went wrong in cpt", e);
+		}
 	}
 }
