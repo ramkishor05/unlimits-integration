@@ -1,22 +1,30 @@
 server: 
-  port: 4444
-# Disable Spring Boot's "Whitelabel" default error page, so we can use our own
+  host: 51.79.159.7
+  port: 4001
+  gateway:
+    host: 51.79.159.7
+    port: 8081
+    endpoint: integration
+  eureka:
+    host: 51.79.159.7
+    port: 1001
 error:
   whitelabel:
     enabled: true
 
 spring:
-   profiles:
-     active: local
+   config:
+     activate:
+        on-profile: local
    application:
      name: unlimits_integration
    main:
      allow-bean-definition-overriding: true
 # Discovery Server Access
 eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://51.79.159.7:1111/eureka/
+ client:
+   serviceUrl:
+     defaultZone: http://${server.eureka.host}:${server.eureka.port}/eureka/
 openai:
    model: gpt-4
    org_id: org-mKGjag0aNKl2OkB52o9BJ4D1
@@ -47,3 +55,119 @@ openapi:
 content:
    api:
      url: http://51.79.159.7:8080/content
+---
+server: 
+  host: 51.79.159.7
+  port: 4002
+  gateway:
+    host: 51.79.159.7
+    port: 8082
+    endpoint: integration
+  eureka:
+    host: 51.79.159.7
+    port: 1002
+error:
+  whitelabel:
+    enabled: true
+
+spring:
+   config:
+     activate:
+        on-profile: develop
+   application:
+     name: unlimits_integration
+   main:
+     allow-bean-definition-overriding: true
+# Discovery Server Access
+eureka:
+ client:
+   serviceUrl:
+     defaultZone: http://${server.eureka.host}:${server.eureka.port}/eureka/
+openai:
+   model: gpt-4
+   org_id: org-mKGjag0aNKl2OkB52o9BJ4D1
+   prg_id: proj_Zu3CI1YzGLGp9OJKQgOu9kUr
+   api:
+     key: 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
+     urlmodels: https://api.openai.com/v1/models
+     urlchat: https://api.openai.com/v1/chat/completions
+     urlaudio: https://api.openai.com/v1/audio
+     urlimages: https://api.openai.com/v1/images
+     
+google:
+   api:
+      key: AIzaSyDNnzAkd3sd_f7NH_kStnEK_MB5VUSOr2w
+      driveId: 12CCvmzIWirEGI5nKuRmOhI_KZnb-gSUA
+pexels:
+   user: sajith@unlimits.ai
+   password: unlimits2024
+   api:
+      key: shZFoL0bXoM1fPRCtZ7SFM6adEu3EtDkmQWK2QvbytZ6khWL5ph5qfqZ
+      urlimages: https://api.pexels.com/v1/search
+springdoc:
+   swagger-ui:
+      path: /api/swagger-ui.html
+openapi:
+  service:
+      url: http://51.79.159.7:8080/integration
+content:
+   api:
+     url: http://51.79.159.7:8080/content
+---
+server: 
+  host: 51.79.159.7
+  port: 4003
+  gateway:
+    host: 51.79.159.7
+    port: 8083
+    endpoint: integration
+  eureka:
+    host: 51.79.159.7
+    port: 1003
+error:
+  whitelabel:
+    enabled: true
+
+spring:
+   config:
+     activate:
+        on-profile: local
+   application:
+     name: unlimits_integration
+   main:
+     allow-bean-definition-overriding: true
+# Discovery Server Access
+eureka:
+ client:
+   serviceUrl:
+     defaultZone: http://${server.eureka.host}:${server.eureka.port}/eureka/
+openai:
+   model: gpt-4
+   org_id: org-mKGjag0aNKl2OkB52o9BJ4D1
+   prg_id: proj_Zu3CI1YzGLGp9OJKQgOu9kUr
+   api:
+     key: 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
+     urlmodels: https://api.openai.com/v1/models
+     urlchat: https://api.openai.com/v1/chat/completions
+     urlaudio: https://api.openai.com/v1/audio
+     urlimages: https://api.openai.com/v1/images
+     
+google:
+   api:
+      key: AIzaSyDNnzAkd3sd_f7NH_kStnEK_MB5VUSOr2w
+      driveId: 12CCvmzIWirEGI5nKuRmOhI_KZnb-gSUA
+pexels:
+   user: sajith@unlimits.ai
+   password: unlimits2024
+   api:
+      key: shZFoL0bXoM1fPRCtZ7SFM6adEu3EtDkmQWK2QvbytZ6khWL5ph5qfqZ
+      urlimages: https://api.pexels.com/v1/search
+springdoc:
+   swagger-ui:
+      path: /api/swagger-ui.html
+openapi:
+  service:
+      url: http://${server.eureka.host}:${server.eureka.port}/integration
+content:
+   api:
+     url: http://${server.eureka.host}:${server.eureka.port}/content
