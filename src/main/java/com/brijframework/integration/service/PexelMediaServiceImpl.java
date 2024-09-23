@@ -53,14 +53,16 @@ public class PexelMediaServiceImpl implements PexelMediaService {
 		PageDetail pageDetail=new PageDetail();
 		String url=urlimages+"?query="+query+"&per_page="+count;
 		PixelPageDetail forObject = restTemplate.getForObject(url, PixelPageDetail.class);
-		pageDetail.setPageCount(count);
-		pageDetail.setTotalCount(forObject.getTotalResults());
-		pageDetail.setTotalPages(forObject.getPage());
-		pageDetail.setElements(forObject.getPhotos().stream().map(photo->{
-			FileContent fileContent = new FileContent(photo.getId()+"", photo.getAlt(), "file");
-			fileContent.setUrl(photo.getSrc().getOriginal());
-			return fileContent;
-		}).toList());
+		if(forObject!=null) {
+			pageDetail.setPageCount(count);
+			pageDetail.setTotalCount(forObject.getPhotos().size());
+			pageDetail.setTotalPages(forObject.getPage());
+			pageDetail.setElements(forObject.getPhotos().stream().map(photo->{
+				FileContent fileContent = new FileContent(photo.getId()+"", photo.getAlt(), "file");
+				fileContent.setUrl(photo.getSrc().getOriginal());
+				return fileContent;
+			}).toList());
+		}
 		return pageDetail;
 	}
 }

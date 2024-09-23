@@ -96,8 +96,8 @@ public class TemplateConfig {
 			request.getHeaders().add("Authorization", pexelsApiKey);
 			return execution.execute(request, body);
 		});
-		restTemplate.getInterceptors().add(new LoggingRequestInterceptor());
-		restTemplate.setErrorHandler(new RestErrorHandler());
+		//restTemplate.getInterceptors().add(new LoggingRequestInterceptor());
+		//restTemplate.setErrorHandler(new RestErrorHandler());
 		return restTemplate;
 	}
 
